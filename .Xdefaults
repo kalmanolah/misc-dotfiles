@@ -36,7 +36,6 @@ URxvt.cursorUnderline: false
 ! Pointer
 URxvt.pointerBlank: true
 
-!!*fading: 40
 *fadeColor: #393939
 *pointerColorBackground: #e0e0e0
 *pointerColorForeground: #e9e9e9
@@ -47,9 +46,10 @@ URxvt.scrollBar: false
 
 ! Perl extensions
 URxvt.perl-ext-common: default,url-select,clipboard
-URxvt.matcher.button: 1
+URxvt.url-select.autocopy: true
+URxvt.url-select.button: 1
 URxvt.url-select.launcher: /home/kalman/misc/firefox/firefox
-URxvt.urlLauncher: /home/kalman/misc/firefox/firefox
+URxvt.url-select.underline: true
 
 !! custom stuff
 URxvt.keysym.4-C-u: perl:url-select:select_next
