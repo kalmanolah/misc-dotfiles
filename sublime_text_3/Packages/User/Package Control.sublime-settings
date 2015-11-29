@@ -1,0 +1,40 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"AdvancedNewFile",
+		"Alignment",
+		"Better CoffeeScript",
+		"BracketHighlighter",
+		"Composer",
+		"DocBlockr",
+		"Drupal",
+		"GitGutter",
+		"INI",
+		"Jade",
+		"LESS",
+		"Lua Dev",
+		"Markdown Extended",
+		"Markdown Preview",
+		"MarkdownTOC",
+		"Material Theme",
+		"Package Control",
+		"PHP Modern",
+		"PHP-Twig",
+		"Puppet",
+		"SideBarEnhancements",
+		"SublimeLinter",
+		"SublimeLinter-annotations",
+		"SublimeLinter-coffee",
+		"SublimeLinter-contrib-puppet",
+		"SublimeLinter-contrib-puppet-lint",
+		"SublimeLinter-flake8",
+		"SublimeLinter-pep257",
+		"SublimeLinter-shellcheck",
+		"Theme - Flatland",
+		"TrailingSpaces"
+	]
+}

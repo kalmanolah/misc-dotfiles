@@ -1,0 +1,38 @@
+{
+    // Plugin settings
+
+    // show debug messages?
+    "show_debug": false,
+
+    // Show messages / progress in status bar?
+    "show_status": true,
+
+    // shows the output of composer ?
+    // if you disable it you get no information about composer progress (or even errors)
+    "show_output": true,
+
+    /*
+     * Path to composer binary.
+     * A relative path is relative to the composer.json file
+     */
+    "composer_command":  "composer",
+
+    // Extra arguments for composer install command
+    "composer_install_extra" : ["-n", "-v"],
+
+    // Extra arguments for composer update command
+    "composer_update_extra" : ["-n", "-v"],
+
+    // Extra arguments for composer self-update command
+    "composer_selfupdate_extra" : ["-n", "-v"],
+
+    // Extra arguments for composer dump-autoload command
+    "composer_validate_extra" : ["-n", "-v"],
+
+    // Extra arguments for composer require command
+    "composer_require_extra" : ["-n", "-v"],
+
+    // Extra arguments for composer dump-autoload command
+    "composer_dumpautoload_extra" : ["-n", "-v"]
+
+}

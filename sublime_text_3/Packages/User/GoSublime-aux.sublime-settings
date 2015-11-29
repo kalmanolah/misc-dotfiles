@@ -1,0 +1,25 @@
+{
+	"9o.hist./home/kalman/Workspace/go/src/PingStorm.io/NITE/core":
+	[
+		"go build",
+		"go core",
+		"go help",
+		"go clean",
+		"go install",
+		"core"
+	],
+	"9o.hist./home/kalman/Workspace/go/src/bitbucket.org/pingstorm/nite":
+	[
+		"core",
+		"go build",
+		"nite",
+		"go run",
+		"go run nite",
+		"go fmt",
+		"go install",
+		"run"
+	],
+	"ann": "a13.12.26-1",
+	"install_version": "r13.12.26-1",
+	"version": "r13.12.26-1"
+}
