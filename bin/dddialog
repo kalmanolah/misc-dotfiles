@@ -1,0 +1,8 @@
+#!/bin/bash
+
+SOURCE=$1
+TARGET=$2
+BS=$3
+: ${BS:="4M"}
+
+(pv -n "${SOURCE}" | dd of="${TARGET}" bs=${BS} conv=notrunc,noerror) 2>&1 | dialog --gauge "Running dd command (cloning), please wait..." 10 70 0
