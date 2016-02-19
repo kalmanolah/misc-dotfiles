@@ -1,0 +1,14 @@
+#!/bin/bash
+
+MODENAME='1920x1080_60.00'
+
+SCREENS=$(xrandr | grep ' connected' | grep -v '1920x' | cut -d' ' -f1)
+SCREENS=($SCREENS)
+
+$(xrandr --newmode "${MODENAME}"  173.00  1920 2048 2248 2576  1080 1083 1088 1120 -hsync +vsync)
+
+for SCREEN in "${SCREENS[@]}"
+do
+    xrandr --addmode "${SCREEN}" "${MODENAME}"
+    xrandr --auto --output "${SCREEN}" --mode "${MODENAME}"
+done
