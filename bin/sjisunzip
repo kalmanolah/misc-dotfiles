@@ -1,0 +1,23 @@
+#!/bin/bash
+# Extract an archive containing filenames in SHIFT-JIS, converting them to UTF-8
+# See https://en.wikipedia.org/wiki/Mojibake
+
+FILEPATH=$*
+
+if [ ! -f "$FILEPATH" ]
+then
+    echo "File \"${FILEPATH}\" not found!"
+    exit 1
+fi
+
+FILENAME=$(basename "$FILEPATH")
+FILEDIRECTORY=$(dirname "$FILEPATH")
+
+FILENAME="${FILENAME%.*}"
+OUTPUTDIR="${FILEDIRECTORY}/${FILENAME}"
+
+# Extract to same dir with same filename, without extension
+env LANG=ja_JP 7z x "${FILEPATH}" -o"${OUTPUTDIR}"
+
+# Rename files from SHIFT-JIS to UTF-8
+convmv --notest -f shift-jis -t utf8 -r "${OUTPUTDIR}"
