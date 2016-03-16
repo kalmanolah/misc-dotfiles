@@ -1,23 +1,34 @@
 #!/bin/bash
-# Extract an archive containing filenames in SHIFT-JIS, converting them to UTF-8
+# Extract archives containing filenames in SHIFT-JIS, converting them to UTF-8
 # See https://en.wikipedia.org/wiki/Mojibake
+IFS=""
+FILEPATHS=($@)
 
-FILEPATH=$*
+for FILEPATH in "${FILEPATHS[@]}"
+do
+    if [ ! -f "$FILEPATH" ]
+    then
+        >&2 echo "File \"${FILEPATH}\" not found!"
+        exit 1
+    fi
 
-if [ ! -f "$FILEPATH" ]
-then
-    echo "File \"${FILEPATH}\" not found!"
-    exit 1
-fi
+    FILENAME=$(basename "$FILEPATH")
+    FILEDIRECTORY=$(dirname "$FILEPATH")
 
-FILENAME=$(basename "$FILEPATH")
-FILEDIRECTORY=$(dirname "$FILEPATH")
+    FILENAME="${FILENAME%.*}"
+    OUTPUTDIR="${FILEDIRECTORY}/${FILENAME}"
 
-FILENAME="${FILENAME%.*}"
-OUTPUTDIR="${FILEDIRECTORY}/${FILENAME}"
+    if [ -e "$OUTPUTDIR" ]
+    then
+        >&2 echo "Directory \"${OUTPUTDIR}\" should not exist!"
+        exit 1
+    fi
 
-# Extract to same dir with same filename, without extension
-env LANG=ja_JP 7z x "${FILEPATH}" -o"${OUTPUTDIR}"
+    echo "Extracting \"${FILEPATH}\" to \"${OUTPUTDIR}\".."
 
-# Rename files from SHIFT-JIS to UTF-8
-convmv --notest -f shift-jis -t utf8 -r "${OUTPUTDIR}"
+    # Extract to same dir with same filename, without extension
+    env LANG=ja_JP 7z x "${FILEPATH}" -o"${OUTPUTDIR}" 1>/dev/null
+
+    # Rename files from SHIFT-JIS to UTF-8
+    convmv --notest -f shift-jis -t utf8 -r "${OUTPUTDIR}" 1>/dev/null
+done
