@@ -1,7 +1,6 @@
 #!/bin/bash
 # AVconv/ffmpeg, with wildcards
 # Example: avconv-batch flac **/*.wav
-# @TODO Somehow use parallel
 
 # Some color variables
 RED='\033[0;31m'
@@ -27,21 +26,15 @@ fi
 # Assume first arg is extension, so remove it from file list
 unset FILES[0]
 
+# Build command
+CONVERT_COMMAND="avconv -v warning -i '{}' '{.}.${FORMAT}'"
+COMMAND="${CONVERT_COMMAND} && \
+    printf \"EXEC:   ${CONVERT_COMMAND}: ${GREEN}OK${NC}\n\" || \
+    printf \"EXEC:   ${CONVERT_COMMAND}: ${RED}ERROR${NC}\n\""
+
 echo "FILES:  ${#FILES[@]}"
 echo "FORMAT: ${FORMAT}"
 
-for FILE in "${FILES[@]}"
-do
-    TARGET="${FILE%.*}.${FORMAT}"
-    COMMAND="avconv -v warning -i '${FILE}' '${TARGET}'"
-
-    printf "EXEC:   \"${COMMAND}\" .. "
-    RESULT=$(eval $COMMAND 2>&1)
-
-    if [ $? -eq 0 ]; then
-        printf "${GREEN}OK${NC}\n"
-    else
-        printf "${RED}ERROR${NC}\n"
-        echo "OUTPUT: ${RESULT}"
-    fi
-done
+CPU_COUNT=$(nproc)
+PARALLEL_COMMAND="parallel -j ${CPU_COUNT} '${COMMAND}' ::: ${FILES[*]}"
+eval $PARALLEL_COMMAND
