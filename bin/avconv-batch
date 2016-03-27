@@ -1,0 +1,45 @@
+#!/bin/bash
+# AVconv/ffmpeg, with wildcards
+
+# Some color variables
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+# Read required extension
+FORMAT=$1
+
+if [[ -z "${FORMAT}" ]]; then
+    >&2 echo 'ERROR: No format given!'
+    exit 1
+fi
+
+# Read file list
+FILES=($@)
+
+if [ ${#FILES[@]} -lt 2 ]; then
+    >&2 echo 'ERROR: No files given!'
+    exit 1
+fi
+
+# Assume first arg is extension, so remove it from file list
+unset FILES[0]
+
+echo "FILES:  ${#FILES[@]}"
+echo "FORMAT: ${FORMAT}"
+
+for FILE in "${FILES[@]}"
+do
+    TARGET="${FILE%.*}.${FORMAT}"
+    COMMAND="avconv -v warning -i '${FILE}' '${TARGET}'"
+
+    printf "EXEC:   \"${COMMAND}\" .. "
+    RESULT=$(eval $COMMAND 2>&1)
+
+    if [ $? -eq 0 ]; then
+        printf "${GREEN}OK${NC}\n"
+    else
+        printf "${RED}ERROR${NC}\n"
+        echo "OUTPUT: ${RESULT}"
+    fi
+done
