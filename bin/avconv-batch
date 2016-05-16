@@ -16,7 +16,7 @@ if [[ -z "${FORMAT}" ]]; then
 fi
 
 # Read file list
-FILES=($@)
+FILES=("$@")
 
 if [ ${#FILES[@]} -lt 2 ]; then
     >&2 echo 'ERROR: No files given!'
@@ -31,10 +31,15 @@ CONVERT_COMMAND="avconv -v warning -i '{}' '{.}.${FORMAT}'"
 COMMAND="${CONVERT_COMMAND} && \
     printf \"EXEC:   ${CONVERT_COMMAND}: ${GREEN}OK${NC}\n\" || \
     printf \"EXEC:   ${CONVERT_COMMAND}: ${RED}ERROR${NC}\n\""
+FILE_LIST=()
+
+for FILE in "${FILES[@]}"; do
+    FILE_LIST+=("'${FILE}'")
+done
 
 echo "FILES:  ${#FILES[@]}"
 echo "FORMAT: ${FORMAT}"
 
 CPU_COUNT=$(nproc)
-PARALLEL_COMMAND="parallel -j ${CPU_COUNT} '${COMMAND}' ::: ${FILES[*]}"
-eval $PARALLEL_COMMAND
+PARALLEL_COMMAND="parallel --no-notice -j ${CPU_COUNT} '${COMMAND}' ::: ${FILE_LIST[*]}"
+eval "$PARALLEL_COMMAND"
