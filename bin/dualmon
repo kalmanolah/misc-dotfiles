@@ -1,0 +1,22 @@
+#!/bin/bash
+
+POSITION=$1
+POSITION=${POSITION:-'right'}
+
+CORE_DISPLAY=$2
+CORE_DISPLAY=${CORE_DISPLAY:-'LVDS-0'}
+
+EXTERNAL_DISPLAYS=$3
+EXTERNAL_DISPLAYS=${EXTERNAL_DISPLAYS:-$(xrandr | grep ' connected' | grep -v "${CORE_DISPLAY}" | cut -d' ' -f1)}
+EXTERNAL_DISPLAYS=($EXTERNAL_DISPLAYS)
+
+for EXTERNAL_DISPLAY in "${EXTERNAL_DISPLAYS[@]}"
+do
+  xrandr | grep "${EXTERNAL_DISPLAY} connected" > /dev/null
+
+  if [ $? -eq 0 ]; then
+    CMD="xrandr --output ${CORE_DISPLAY} --${POSITION}-of ${EXTERNAL_DISPLAY}"
+    echo $CMD
+    $CMD
+  fi
+done

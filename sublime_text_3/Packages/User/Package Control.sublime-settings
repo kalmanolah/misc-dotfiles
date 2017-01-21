@@ -32,7 +32,7 @@
 		"SublimeLinter-contrib-puppet",
 		"SublimeLinter-contrib-puppet-lint",
 		"SublimeLinter-flake8",
-		"SublimeLinter-pep257",
+		"SublimeLinter-pydocstyle",
 		"SublimeLinter-shellcheck",
 		"Theme - Flatland",
 		"TrailingSpaces"
