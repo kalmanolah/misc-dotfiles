@@ -1,0 +1,6 @@
+#!/bin/bash
+# Take a screenshot, copying the result to the clipboard
+TMP_FILE=$(mktemp)'.png'
+scrot -m -z "$TMP_FILE"
+xclip -selection clipboard -t "$(mimetype -b $TMP_FILE)" "$TMP_FILE"
+rm $TMP_FILE -f
