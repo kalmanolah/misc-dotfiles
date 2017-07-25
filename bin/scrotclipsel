@@ -1,0 +1,6 @@
+#!/bin/bash
+# Take a screenshot of the selected region, copying the result to the clipboard
+TMP_FILE=$(mktemp)'.png'
+scrot -b -z -s "$TMP_FILE"
+xclip -selection clipboard -t "$(mimetype -b $TMP_FILE)" "$TMP_FILE"
+rm $TMP_FILE -f
