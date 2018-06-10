@@ -35,3 +35,5 @@ fi
 GPG_TTY=$(tty)
 export GPG_TTY
 
+# Rust
+source $HOME/.cargo/env

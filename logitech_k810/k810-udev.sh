@@ -2,6 +2,7 @@
 LOGFILE=/tmp/logfilek810sh.log
 echo "RUN: at `date` by `whoami` act $ACTION \$1 $1 DEVPATH $DEVPATH DEVNAME $DEVNAME" >> ${LOGFILE}
 echo "Setting F-keys on for your K810!"
+HIDDEV="/dev/$(ls $(dirname $(dirname /sys/${DEVPATH}))/hidraw)"
 
 if [ "$ACTION" == "add" ];
 then
@@ -9,5 +10,5 @@ then
     # /opt/bin/k810_conf -d $DEVNAME -f on
 
     # xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
-    /opt/logitech-k810/k810_conf -d $DEVNAME -f on
+    /opt/logitech-k810/k810_conf -d $HIDDEV -f on
 fi
