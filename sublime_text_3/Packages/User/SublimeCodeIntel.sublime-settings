@@ -1,7 +1,0 @@
-{
-    "codeintel_scan_exclude_dir": {
-        "JavaScript":["node_modules", "bower_components"],
-        "Node.js":["node_modules", "bower_components"],
-        "PHP":["vendor", "public", "staticSources"]
-    }
-}
