@@ -1,2 +1,2 @@
-KERNEL=="hidraw*, SUBSYSTEM=="hidraw", ATTRS{uniq}=="00:1f:20:a7:d5:01" \
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{uniq}=="00:1f:20:a7:d5:01" \
  RUN+="/opt/logitech-k810/k810-udev.sh %p"
