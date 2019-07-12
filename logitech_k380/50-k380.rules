@@ -1,0 +1,1 @@
+KERNEL=="hidraw*", SUBSYSTEMS=="hidraw", RUN+="/opt/logitech-k380/k380-udev.sh %p"
